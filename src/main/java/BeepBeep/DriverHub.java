@@ -20,7 +20,7 @@ class DriverHub extends JPanel {
      * @param opmodes Autonomous opmodes given from reflection calls
      */
     public DriverHub(Class<?>[] opmodes, Drive drive) {
-        super();
+        super(true);
 
         String[] opmodesNames = new String[opmodes.length];
         for (int i = 0; i < opmodes.length; i++) {

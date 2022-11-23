@@ -44,7 +44,8 @@ class FieldPanel extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
         Dimension res = getSize();
         g.drawImage(fieldImg, 0, 0, res.width, res.height, (img, infoflags, x, y, width, height) -> false);
-        int driveSize = toPx(drive.size); // FIXME optimized
+        int driveWidth = toPx(drive.width);
+        int driveHeight = toPx(drive.height);
 
         // TODO This is a pretty bad way to do this. Fix this later.
         driveTransform.setToTranslation(
@@ -56,10 +57,10 @@ class FieldPanel extends JPanel {
         g2d.setTransform(driveTransform);
         // Draw robot
         g.setColor(new Color(66, 135, 245));
-        g.fillRect(-(driveSize / 2), -(driveSize / 2), driveSize, driveSize);
+        g.fillRect(-(driveWidth / 2), -(driveHeight / 2), driveWidth, driveHeight);
         // Draw line to show which direction its facing
         g.setColor(new Color(24, 109, 245));
-        g.fillRect(0, -driveSize / 16, driveSize / 2, driveSize / 8);
+        g.fillRect(0, -driveHeight / 16, driveWidth / 2, driveHeight / 8);
         //g.fillRect(0, -(driveSize / 8), driveSize - (driveSize / 5), driveSize / 5);
         g2d.setTransform(old);
     }

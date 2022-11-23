@@ -6,7 +6,8 @@ public class Drive {
     protected double heading;
     protected final double turningRate;
     protected final double maxAcc;
-    protected final int size;
+    protected final double width;
+    protected final double height;
     // Relative values
     protected double accx = 0;
     protected double accy = 0;
@@ -19,19 +20,21 @@ public class Drive {
      * @param y Y position in inches
      * @param heading Robot heading in radians
      * @param maxAcc Max acceleration in inches
-     * @param size Size of the robot in inches
+     * @param width Robot width in inches
+     * @param height Robot height in inches
      */
-    public Drive(double x, double y, double heading, double maxAcc, double turningRate, int size) {
+    public Drive(double x, double y, double heading, double maxAcc, double turningRate, double width, double height) {
         this.x = x;
         this.y = y;
         this.heading = heading;
         this.maxAcc = maxAcc;
         this.turningRate = turningRate;
-        this.size = size;
+        this.width = width;
+        this.height = height;
     }
 
     public Drive() {
-        this(0, 0, 0, 0.05, 0.01, 18);
+        this(0, 0, 0, 0.05, 0.01, 18, 18);
     }
 
     /**

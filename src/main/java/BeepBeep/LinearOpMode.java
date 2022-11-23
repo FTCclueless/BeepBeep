@@ -26,4 +26,8 @@ public class LinearOpMode extends Thread {
     protected boolean isStopRequested() {
         return state == DriverHubState.IDLE;
     }
+
+    protected boolean opModeInInit() {
+        return state == DriverHubState.INIT;
+    }
 }

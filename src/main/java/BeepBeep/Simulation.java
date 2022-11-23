@@ -15,8 +15,7 @@ public class Simulation {
      * @param size Size of the field in pixels
      * @param opmodes Autonomous opmodes given from reflection calls
      */
-    public Simulation(FieldType ft, int size, Class<?>[] opmodes) throws IOException {
-        Drive drive = new Drive();
+    public Simulation(FieldType ft, int size, Class<?>[] opmodes, Drive drive) throws IOException {
         frame = new JFrame("BeepBeep");
         //frame.setLayout(null); // CAN BE REMOVED?
         frame.setSize(size + size / 2, size); // 2:1 ratio
