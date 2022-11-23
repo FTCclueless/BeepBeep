@@ -214,7 +214,7 @@ public class Trajectory {
 
             @Override
             public Pose2d getEnd(Pose2d pose) {
-                return new Pose2d(pose.getX(), pose.getY(), pose.getHeading() + theta);
+                return new Pose2d(pose.getX(), pose.getY(), Util.absAngle(pose.getHeading() + theta));
             }
 
             @Override
