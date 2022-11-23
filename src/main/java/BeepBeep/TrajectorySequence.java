@@ -2,10 +2,11 @@ package BeepBeep;
 
 import java.util.ArrayList;
 
+// TODO end caching
+
 public class TrajectorySequence {
     protected final ArrayList<Trajectory> trajectorys = new ArrayList<>();
     protected final Pose2d origin;
-
 
     public TrajectorySequence(Pose2d origin) {
         this.origin = origin;
@@ -56,6 +57,15 @@ public class TrajectorySequence {
         return this;
     }
 
+    public TrajectorySequence strafeTo(Pose2d endPos) {
+        Pose2d trajOrigin = origin;
+        if (trajectorys.size() > 0) {
+            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
+        }
+        trajectorys.add(new Trajectory(trajOrigin).strafeTo(endPos));
+        return this;
+    }
+
     public TrajectorySequence lineTo(Vector2d endPos) {
         return strafeTo(endPos);
     }
@@ -71,5 +81,21 @@ public class TrajectorySequence {
         }
         trajectorys.add(new Trajectory(trajOrigin).lineToLinearHeading(endPose));
         return this;
+    }
+
+    public TrajectorySequence turn(double theta) {
+        Pose2d trajOrigin = origin;
+        if (trajectorys.size() > 0) {
+            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
+        }
+        trajectorys.add(new Trajectory(trajOrigin).turn(theta));
+        return this;
+    }
+
+    public Pose2d end() {
+        if (trajectorys.size() > 0) {
+            return trajectorys.get(trajectorys.size() - 1).end();
+        }
+        return origin;
     }
 }

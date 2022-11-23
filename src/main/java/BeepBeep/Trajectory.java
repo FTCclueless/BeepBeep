@@ -1,6 +1,7 @@
 package BeepBeep;
 
 import java.util.ArrayList;
+// TODO Ignoring of headings in things like strafeTo
 
 public class Trajectory {
     protected final ArrayList<Path> paths = new ArrayList<>();
@@ -148,6 +149,27 @@ public class Trajectory {
         return this;
     }
 
+    public Trajectory strafeTo(Pose2d endPos) {
+        paths.add(new Path() {
+            @Override
+            public Pose2d f(Drive drive) {
+                double theta = Math.atan2(endPos.getY() - drive.y, endPos.getX() - drive.x);
+                return new Pose2d(Math.cos(theta) * drive.maxAcc, Math.sin(theta) * drive.maxAcc, drive.heading);
+            }
+
+            @Override
+            public Pose2d getEnd(Pose2d pose) {
+                return endPos;
+            }
+
+            @Override
+            public boolean checkContinuity() {
+                return true;
+            }
+        });
+        return this;
+    }
+
 
     public Trajectory lineTo(Vector2d endPos) {
         return strafeTo(endPos);
@@ -173,6 +195,26 @@ public class Trajectory {
             @Override
             public Pose2d getEnd(Pose2d pose) {
                 return endPose;
+            }
+
+            @Override
+            public boolean checkContinuity() {
+                return true;
+            }
+        });
+        return this;
+    }
+
+    public Trajectory turn(double theta) {
+        paths.add(new Path() {
+            @Override
+            public Pose2d f(Drive drive) {
+                return new Pose2d(0, 0, drive.heading + Cfg.turningRate);
+            }
+
+            @Override
+            public Pose2d getEnd(Pose2d pose) {
+                return new Pose2d(pose.getX(), pose.getY(), pose.getHeading() + theta);
             }
 
             @Override

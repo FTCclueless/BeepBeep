@@ -54,7 +54,10 @@ public class Drive {
 
     private boolean canSnapTo(Pose2d pose) {
         // Check if the distance between the two points is able to be snapped to with our current velocity
-        return Math.pow(pose.getX() - x, 2) + Math.pow(pose.getY() - y, 2) <= Math.pow(velx + vely, 2);
+        return
+            Math.pow(pose.getX() - x, 2) + Math.pow(pose.getY() - y, 2) <= Math.pow(velx + vely, 2) &&
+            // Check if between turningRates
+            (pose.getHeading() + Cfg.turningRate >= heading && pose.getHeading() - Cfg.turningRate <= heading);
     }
 
     private Pose2d toPose() {
