@@ -209,7 +209,8 @@ public class Trajectory {
         paths.add(new Path() {
             @Override
             public Pose2d f(Drive drive) {
-                return new Pose2d(0, 0, drive.heading + Cfg.turningRate);
+                System.out.println(Math.signum(theta));
+                return new Pose2d(0, 0, Util.absAngle(drive.heading + Cfg.turningRate * Math.signum(theta)));
             }
 
             @Override
