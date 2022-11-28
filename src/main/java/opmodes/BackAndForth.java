@@ -18,7 +18,8 @@ public class BackAndForth extends LinearOpMode {
         // Like RoadRunner, construct a trajectory sequence that does the following things.
         TrajectorySequence seq = drive.trajectorySequenceBuilder(origin)
             .back(48)
-            .forward(48);
+            .forward(48)
+            .build();
 
         waitForStart();
 

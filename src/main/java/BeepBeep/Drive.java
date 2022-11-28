@@ -47,12 +47,12 @@ public class Drive {
         heading = pose.getHeading();
     }
 
-    public Trajectory trajectoryBuilder(Pose2d origin) {
-        return new Trajectory(origin);
+    public TrajectoryBuilder trajectoryBuilder(Pose2d origin) {
+        return new TrajectoryBuilder(origin);
     }
 
-    public TrajectorySequence trajectorySequenceBuilder(Pose2d origin) {
-        return new TrajectorySequence(origin);
+    public TrajectorySequenceBuilder trajectorySequenceBuilder(Pose2d origin) {
+        return new TrajectorySequenceBuilder(origin);
     }
 
     private boolean canSnapTo(Pose2d pose) {
@@ -70,10 +70,10 @@ public class Drive {
 
     public void followTrajectory(Trajectory trajectory) throws InterruptedException, PathContinuityException {
         velx = vely = accx = accy = 0;
-        x = trajectory.origin.getX();
-        y = trajectory.origin.getY();
-        heading = trajectory.origin.getHeading();
-        for (Path path : trajectory.paths) {
+        x = trajectory.builder.origin.getX();
+        y = trajectory.builder.origin.getY();
+        heading = trajectory.builder.origin.getHeading();
+        for (Path path : trajectory.builder.paths) {
             Pose2d endPose = path.getEnd(toPose());
             if (path.checkContinuity() && (velx != 0 || vely != 0)) {
                 throw new PathContinuityException("Incontinuous path.");

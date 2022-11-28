@@ -52,7 +52,7 @@ class FieldPanel extends JPanel {
             toPx(-drive.y) + toPx(24 * 3),
             toPx(-drive.x) + toPx(24 * 3)
         );
-        driveTransform.rotate(drive.heading);
+        driveTransform.rotate(drive.heading + -Math.PI / 2);
         AffineTransform old = g2d.getTransform();
         g2d.setTransform(driveTransform);
         // Draw robot
@@ -61,7 +61,6 @@ class FieldPanel extends JPanel {
         // Draw line to show which direction its facing
         g.setColor(new Color(24, 109, 245));
         g.fillRect(0, -driveHeight / 16, driveWidth / 2, driveHeight / 8);
-        //g.fillRect(0, -(driveSize / 8), driveSize - (driveSize / 5), driveSize / 5);
         g2d.setTransform(old);
     }
 

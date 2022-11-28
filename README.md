@@ -9,8 +9,7 @@ a drivetrain. Incredibly cool.
 Here is my incredible documentation! I know its bad :(  
 #### Note: Most things RoadRunner are already here
 # `LinearOpMode`  
-`Drive drive` - The drive fed to you. Has trajectory and
-follow trajectory functions.  
+`Drive drive` - The drive fed to you. Has respective functions.
 `protected void runOpMode() throws InterruptedException, PathContinuityException` - Run your opmode code here.  
 # `Simulation`
 `public enum FieldType {  

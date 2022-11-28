@@ -2,100 +2,24 @@ package BeepBeep;
 
 import java.util.ArrayList;
 
-// TODO end caching
-
 public class TrajectorySequence {
     protected final ArrayList<Trajectory> trajectorys = new ArrayList<>();
-    protected final Pose2d origin;
+    protected final TrajectorySequenceBuilder builder;
+    private Pose2d end;
 
-    public TrajectorySequence(Pose2d origin) {
-        this.origin = origin;
-    }
-
-    public TrajectorySequence forward(double distance) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
+    public TrajectorySequence(TrajectorySequenceBuilder builder) {
+        for (TrajectoryBuilder trajectoryBuilder : builder.trajectorys) {
+            trajectorys.add(trajectoryBuilder.build());
         }
-        trajectorys.add(new Trajectory(trajOrigin).forward(distance));
-        return this;
-    }
-
-    public TrajectorySequence back(double distance) {
-        Pose2d trajOrigin = origin;
+        this.builder = builder;
         if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
+            this.end = trajectorys.get(trajectorys.size() - 1).end();
+        } else {
+            this.end = builder.origin;
         }
-        trajectorys.add(new Trajectory(trajOrigin).back(distance));
-        return this;
-    }
-
-    public TrajectorySequence strafeLeft(double distance) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
-        }
-        trajectorys.add(new Trajectory(trajOrigin).strafeLeft(distance));
-        return this;
-    }
-
-    public TrajectorySequence strafeRight(double distance) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
-        }
-        trajectorys.add(new Trajectory(trajOrigin).strafeRight(distance));
-        return this;
-    }
-
-    public TrajectorySequence strafeTo(Vector2d endPos) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
-        }
-        trajectorys.add(new Trajectory(trajOrigin).strafeTo(endPos));
-        return this;
-    }
-
-    public TrajectorySequence strafeTo(Pose2d endPos) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
-        }
-        trajectorys.add(new Trajectory(trajOrigin).strafeTo(endPos));
-        return this;
-    }
-
-    public TrajectorySequence lineTo(Vector2d endPos) {
-        return strafeTo(endPos);
-    }
-
-    public TrajectorySequence lineToConstantHeading(Vector2d endPos) {
-        return strafeTo(endPos);
-    }
-
-    public TrajectorySequence lineToLinearHeading(Pose2d endPose) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
-        }
-        trajectorys.add(new Trajectory(trajOrigin).lineToLinearHeading(endPose));
-        return this;
-    }
-
-    public TrajectorySequence turn(double theta) {
-        Pose2d trajOrigin = origin;
-        if (trajectorys.size() > 0) {
-            trajOrigin = trajectorys.get(trajectorys.size() - 1).end();
-        }
-        trajectorys.add(new Trajectory(trajOrigin).turn(theta));
-        return this;
     }
 
     public Pose2d end() {
-        if (trajectorys.size() > 0) {
-            return trajectorys.get(trajectorys.size() - 1).end();
-        }
-        return origin;
+        return this.end;
     }
 }
